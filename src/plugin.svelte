@@ -1,35 +1,29 @@
-<div class="plugin__mobile-header">
-    { title }
-</div>
-<section class="plugin__content">
-    <div
-        class="plugin__title plugin__title--chevron-back"
-        on:click={ () => bcast.emit('rqstOpen', 'menu') }
-    >
-    { title }
-    </div>
-    Put your plugin code here
-</section>
+<div class="size-s mb-5">PMSR areas</div>
+
 <script lang="ts">
-    import bcast from "@windy/broadcast";
-    import { onDestroy, onMount } from 'svelte';
+    import { map } from '@windy/map'
+    import { onDestroy } from 'svelte';
 
-    import config from './pluginConfig';
+    let layer: L.GeoJSON | null = null;
+    const geoJson = fetch('pmsr.geojson');
+    const geoJsonData = geoJson.json();
 
-    const { title } = config;
-
-
-    export const onopen = (_params: unknown) => {
-        // Your plugin was opened with parameters parsed from URL
-        // or with LatLon object if opened from contextmenu
-    };
-
-    onMount(() => {
-        // Your plugin was mounted
+    layer = new L.GeoJSON(geoJsonData, {
+        style: {
+            color: '#76f5f7',
+            weight: 1,
+            opacity: 0.7,
+            fillOpacity:  0,
+            fillColor: 'transparent',
+         },
     });
 
+    map.addLayer(layer)
+
     onDestroy(() => {
-        // Your plugin was destroyed
+        if(layer) {
+            layer.remove();
+        }
     });
 </script>
 
