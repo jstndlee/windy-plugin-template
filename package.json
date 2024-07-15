@@ -5,7 +5,7 @@
     "main": "dist/plugin.min.js",
     "type": "module",
     "scripts": {
-        "build": "rm -rf dist && mkdir dist && SERVE=false rollup -c && cp package.json dist/",
+        "build": "rm -rf dist && mkdir dist && cross-env SERVE=false rollup -c && cp package.json dist/",
         "start": "rollup -w -c",
         "example01": "cross-env CONFIG=example01 rollup -w -c",
         "example02": "cross-env CONFIG=example02 rollup -w -c",
@@ -14,7 +14,7 @@
         "example05": "cross-env CONFIG=example05 rollup -w -c",
         "example06": "cross-env CONFIG=example06 rollup -w -c",
         "example07": "cross-env CONFIG=example07 rollup -w -c",
-        "build:all-examples": "for number in 01 02 03 04 05 06; do CONFIG=example$number SERVE=false rollup -c; done",
+        "build:all-examples": "for number in 01 02 03 04 05 06; do cross-env CONFIG=example$number cross-env SERVE=false rollup -c; done",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -33,6 +33,7 @@
     },
     "homepage": "https://docs.windy-plugins.com/",
     "dependencies": {
+        "@rollup/plugin-json": "^6.1.0",
         "@windycom/plugin-devtools": "^2.0.0",
         "cross-env": "^7.0.3"
     }

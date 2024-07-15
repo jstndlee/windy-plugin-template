@@ -13,6 +13,8 @@ import sveltePreprocess from 'svelte-preprocess';
 
 import { transformCodeToESMPlugin, keyPEM, certificatePEM } from '@windycom/plugin-devtools';
 
+import json from '@rollup/plugin-json';
+
 const useSourceMaps = true;
 
 const buildConfigurations = {
